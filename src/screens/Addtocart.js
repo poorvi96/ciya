@@ -6,37 +6,36 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-export default function Addtocart({ route,navigation }) {
+export default function Addtocart({ route, navigation }) {
     console.log("add to cart===", route.params);
     const [product, setProduct] = useState(route.params);
     const [totalqty, setTotalqty] = useState(0);
     const [totalpay, setTotalpay] = useState(0);
 
-    useEffect(()=>{
-        var qty=0;
-        var pay=0;
-        function showdata(){
-            product.map(d=>{
-                qty+=d.qty
-                pay+=d.qty*d.product_rate
+    useEffect(() => {
+        var qty = 0;
+        var pay = 0;
+        function showdata() {
+            product.map(d => {
+                qty += d.qty
+                pay += d.qty * d.product_rate
             })
-         
+
         }
-     showdata()
-     setTotalqty(qty)
-     setTotalpay(pay)
-    },[])
-    function placeorderpay(){
-        const params={
+        showdata()
+        setTotalqty(qty)
+        setTotalpay(pay)
+    }, [])
+    function placeorderpay() {
+        const params = {
             ...product,
-            "orderid":1,
-            
-            "qty":totalqty,
-            "pay":totalpay
+            "orderid": 1,
+            "qty": totalqty,
+            "pay": totalpay
         }
-    
+
         console.log(params);
-        navigation.navigate('addaddress',{state:params})
+        navigation.navigate('address', { state: params })
     }
     function placeOrder() {
         return <>
@@ -52,7 +51,7 @@ export default function Addtocart({ route,navigation }) {
                 </View>
             </View>
             <View style={styles.productplace}>
-                <TouchableOpacity onPress={placeorderpay}style={styles.placeorderbtn}>
+                <TouchableOpacity onPress={placeorderpay} style={styles.placeorderbtn}>
                     <Text>Placeordernow </Text>
                 </TouchableOpacity>
 
@@ -82,12 +81,13 @@ export default function Addtocart({ route,navigation }) {
             </>)
 
     }
-   
+
 
     return (
         <>
             <View style={styles.container}>
                 <HeadderComponent />
+
                 <View style={styles.cartproduct}>
                     <ScrollView>
                         {
@@ -99,6 +99,7 @@ export default function Addtocart({ route,navigation }) {
                         }
                     </ScrollView>
                 </View>
+                
                 <View style={styles.placeorder}>
                     {placeOrder()}
                 </View>
@@ -188,7 +189,7 @@ const styles = StyleSheet.create({
     },
     producttext: {
         flex: 1,
-       
+
         justifyContent: 'center',
         alignItems: 'center',
 
@@ -214,11 +215,11 @@ const styles = StyleSheet.create({
         backgroundColor: 'white',
         padding: 20
     },
-    productviewqtytext:{
-        width:100,
-        backgroundColor:'white',
-        padding:10,
-        marginTop:5
+    productviewqtytext: {
+        width: 100,
+        backgroundColor: 'white',
+        padding: 10,
+        marginTop: 5
 
     }
 })

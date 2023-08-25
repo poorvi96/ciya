@@ -1,24 +1,34 @@
 import React from 'react'
-import {Text,View,StyleSheet,Image,Dimensions} from 'react-native'
+import {Text,View,StyleSheet,Image,Dimensions,TouchableOpacity} from 'react-native'
 import home from "../images/icon/home.png"
 import cart from '../images/icon/cart.png'
 import notification from '../images/icon/notification.png'
+
 const w =Dimensions.get('window').width;
 const h =Dimensions.get('window').height;
-export default function HeadderComponent(){
+export default function HeadderComponent(props){
+         function cartfunc(){
+            console.log(props);
+        const{cartbtn,nav}=props
+          cartbtn()
+        
+          
+    }
+        
 return(
 
-    
 <View style={styles.header}>
                 <View style={styles.header_left}>
                     <Image source={home} style={styles.home_icon}/>
                     <Text style={styles.home_text}>
-                       Ciya
+                       {props.title}
                      </Text>
                 </View>
                 <View style={styles.header_right}>
                 <Image source={notification} style={styles.home_icon}/>
+                <TouchableOpacity onPress={cartfunc}>
                 <Image source={cart} style={styles.home_icon}/>
+                </TouchableOpacity>
                 </View>    
             </View> 
            

@@ -1,4 +1,4 @@
-import React, { useEffect,useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
 import HeadderComponent from '../components/HeaderComponent'
 import ImageSliderComponent from '../components/ImageSliderComponent'
@@ -7,25 +7,34 @@ import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler'
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
-export default function HomeScreen({navigation}) {
-    const [product,setProduct] = useState('')
-    const [addcart,setAddCart]= useState([]);
-    useEffect(()=>{
+export default function HomeScreen({ navigation }) {
+    const [product, setProduct] = useState('')
+    const [addcart, setAddCart] = useState([]);
+    useEffect(() => {
 
-        async function ProductShow(){
-        
-        const res = await axios("http://ankursingh.xyz/api/productshow.php")
-        //const {body} = res.data
-        console.log( res.data.body);
-        setProduct(res.data.body)
+        async function ProductShow() {
+
+            const res = await axios("http://ankursingh.xyz/api/productshow.php")
+            //const {body} = res.data
+            console.log(res.data.body);
+            setProduct(res.data.body)
         }
-            ProductShow()
-        },[])
-        
-      
+        ProductShow()
+    }, [])
+
+
     function Header() {
-        return <HeadderComponent />
+        const detail = {
+            cartbtn: cartshow,
+            nav: navigation.navigate,
+            title: "Home screen"
+        }
+
+        return <HeadderComponent  {...detail} />
     }
+
+
+
     function Slider() {
         return <ImageSliderComponent />
     }
@@ -33,25 +42,29 @@ export default function HomeScreen({navigation}) {
     function ProductShow() {
         return < ProductComponent />
     }
-    function productShowData(product){
-        return<>
-    {product.map(d=>(<>
-        <View style={styles.product}>
-            <TouchableOpacity onPress={()=>navigation.navigate('details',{...d,addcart})}>
-            <View  style={styles.product1}>
-                <View style={styles.image}>
-                 <Image source={{uri:d.image}} style={{width:'100%', height:'100%'}}/>
+    function productShowData(product) {
+        return <>
+            {product.map(d => (<>
+                <View style={styles.product}>
+                    <TouchableOpacity onPress={() => navigation.navigate('details', { ...d, addcart })}>
+                        <View style={styles.product1}>
+                            <View style={styles.image}>
+                                <Image source={{ uri: d.image }} style={{ width: '100%', height: '100%' }} />
+                            </View>
+                            <View style={styles.producttext} >
+                                <Text>product:  {d.product_name}</Text>
+                                <Text>Rs.{d.product_rate}/-</Text>
+                            </View>
+                        </View>
+                    </TouchableOpacity>
                 </View>
-                <View style={styles.producttext} >
-            <Text>product:  {d.product_name}</Text>
-            <Text>Rs.{d.product_rate}/-</Text>
-            </View>
-            </View>
-            </TouchableOpacity>
-        </View>
+            </>
+            ))}
         </>
-    ))}
-    </>
+    }
+
+    function cartshow() {
+        navigation.navigate("addtocart")
     }
 
     return (
@@ -74,18 +87,18 @@ export default function HomeScreen({navigation}) {
                     {ProductShow()}
                 </View>
     */}
-    <View>
-        <ScrollView style={styles}>
-            {
-            product!==''?
-                       productShowData(product)
-            :<Text>Not Product</Text>
-            }
- </ScrollView>
-           </View>
+                <View>
+                    <ScrollView style={styles}>
+                        {
+                            product !== '' ?
+                                productShowData(product)
+                                : <Text>Not Product</Text>
+                        }
+                    </ScrollView>
+                </View>
 
             </View>
-           
+
         </>
     )
 }
@@ -113,40 +126,40 @@ const styles = StyleSheet.create({
         flexDirection: 'row'
 
     },
-    product:{
-        width:w,
-        height:200,
-        backgroundColor:'#c2efdf',
-       justifyContent:'center',
-        alignItems:'center',
-       
-        
-      
-        
+    product: {
+        width: w,
+        height: 200,
+        backgroundColor: '#c2efdf',
+        justifyContent: 'center',
+        alignItems: 'center',
+
+
+
+
     },
-    image:{
-      width:150,
-      height:"100%",
-      backgroundColor:'white'
+    image: {
+        width: 150,
+        height: "100%",
+        backgroundColor: 'white'
     },
-    product1:{
-        width:w*.8,
-        height:180,
-        backgroundColor:'#ffc6d3',
-        flexDirection:'row',
-        borderRadius:20,
-        overflow:'hidden'
-    
-      
+    product1: {
+        width: w * .8,
+        height: 180,
+        backgroundColor: '#ffc6d3',
+        flexDirection: 'row',
+        borderRadius: 20,
+        overflow: 'hidden'
+
+
     },
-    ScrollView:{
-        width:w,
-        height:h*.5
+    ScrollView: {
+        width: w,
+        height: h * .5
     },
-    producttext:{
-        flex:1,
-        height:"100%",
-        padding:10
+    producttext: {
+        flex: 1,
+        height: "100%",
+        padding: 10
     }
 
 })
