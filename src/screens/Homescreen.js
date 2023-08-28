@@ -86,16 +86,18 @@ export default function HomeScreen({ navigation }) {
                 <View style={styles.product_List_show}>
                     {ProductShow()}
                 </View>
-    */}
-                <View>
-                    <ScrollView style={styles}>
+    */} 
+                
+                    <ScrollView>
+                   < View>
                         {
                             product !== '' ?
                                 productShowData(product)
                                 : <Text>Not Product</Text>
                         }
-                    </ScrollView>
+                    
                 </View>
+                </ScrollView>
 
             </View>
 

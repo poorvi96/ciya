@@ -1,13 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState ,useContext} from 'react'
 import { Text, Image, View, StyleSheet, Dimensions } from 'react-native'
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import add from "../images/icon/add.png"
 import sub from "../images/icon/sub.png"
 import cart from '../images/icon/cart.png'
+
+
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function Details({ route,navigation }) {
+  
     const [product, setProduct] = useState(route.params);
+   
     const [qty, setQty] = useState(1);
     const [amount, setAmount] = useState(product.product_rate)
     const [totalpay, setTotalpay] = useState('')
