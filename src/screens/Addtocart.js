@@ -4,6 +4,7 @@ import del from "../images/icon/del.png"
 import HeadderComponent from '../components/HeaderComponent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { ContextAuth } from '../context/Context'
+import BackHeaderComponent from '../components/BackHeaderComponent';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function Addtocart({ route, navigation }) {
@@ -90,7 +91,8 @@ const [product, setProduct] = useState(Addtocart);
     return (
         <>
             <View style={styles.container}>
-                <HeadderComponent />
+                {/* <HeadderComponent /> */}
+                <BackHeaderComponent title="Cart Screen"/>
 
                 <View style={styles.cartproduct}>
                     <ScrollView>
