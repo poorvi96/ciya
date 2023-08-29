@@ -1,12 +1,14 @@
-import React, { useEffect, useMemo, useState } from 'react'
+import React, { useEffect, useMemo, useState,useContext } from 'react'
 import { Text, View, StyleSheet, Dimensions, TouchableOpacity,TextInput } from 'react-native'
-
+import { ContextAuth } from '../context/Context';
 import OtpInputs from 'react-native-otp-inputs';
 
 import RadioGroup from 'react-native-radio-buttons-group';
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function Payment({route,navigation}) {
+    const data = useContext(ContextAuth)
+    const {Addtocart,orderdata} = data
     const [selectedId, setSelectedId] = useState();
     const { address, payment } = route.params
     const [isConfirm, setIsConfirm] = useState(false);
@@ -93,6 +95,7 @@ export default function Payment({route,navigation}) {
        
         if(otp==="1111"){
             alert("Congrats!your order has confirmed.")
+            orderdata.push(...Addtocart)
             navigation.navigate("orderconfirm")
         }
         else{

@@ -1,23 +1,27 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { Text, View, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native'
 import HeadderComponent from '../components/HeaderComponent'
 import ImageSliderComponent from '../components/ImageSliderComponent'
 import ProductComponent from '../components/ProductComponent'
+import {productitem} from '../Data/data'
 import axios from 'axios';
 import { ScrollView } from 'react-native-gesture-handler'
+import { ContextAuth } from '../context/Context'
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function HomeScreen({ navigation }) {
-    const [product, setProduct] = useState('')
+    const [product,setProduct] = useState('')
+    const data= useContext(ContextAuth)
     const [addcart, setAddCart] = useState([]);
+
     useEffect(() => {
-
+         const {productitem}=data
         async function ProductShow() {
-
-            const res = await axios("http://ankursingh.xyz/api/productshow.php")
+           
+            // const res = await axios("http://ankursingh.xyz/api/productshow.php")
             //const {body} = res.data
-            console.log(res.data.body);
-            setProduct(res.data.body)
+            // console.log(res.data.body);
+            setProduct(productitem)
         }
         ProductShow()
     }, [])

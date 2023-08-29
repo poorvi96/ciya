@@ -4,12 +4,13 @@ import { TouchableOpacity } from 'react-native-gesture-handler';
 import add from "../images/icon/add.png"
 import sub from "../images/icon/sub.png"
 import cart from '../images/icon/cart.png'
-
+import { ContextAuth } from '../context/Context';
 
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function Details({ route,navigation }) {
-  
+    var data  = useContext(ContextAuth)
+    const{Addtocart} = data
     const [product, setProduct] = useState(route.params);
    
     const [qty, setQty] = useState(1);
@@ -36,7 +37,7 @@ export default function Details({ route,navigation }) {
 
     }
     function addToCart(){
-        alert("add tocart")
+      
         const params = {
             ...product,
             "cartid":product.product_id,
@@ -45,13 +46,13 @@ export default function Details({ route,navigation }) {
             "userId":1
            
         }
-        var cart=product.addcart;
-        cart.push(params);
+        // var cart=product.addcart;
+        Addtocart.push(params);
        
         
-        navigation.navigate("addtocart",cart)
+        navigation.navigate("addtocart",Addtocart)
    }
-   console.log(product);
+  
 
     return (
         <>

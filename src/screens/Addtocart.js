@@ -3,13 +3,15 @@ import { Text, StyleSheet, Image, View, Dimensions, ScrollView } from 'react-nat
 import del from "../images/icon/del.png"
 import HeadderComponent from '../components/HeaderComponent';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import { ContextAuth } from '../context/Context'
 const w = Dimensions.get('window').width;
 const h = Dimensions.get('window').height;
 export default function Addtocart({ route, navigation }) {
-   
+    const data  = useContext(ContextAuth)
+    const {Addtocart} = data
     console.log("add to cart===", route.params);
-   const [product, setProduct] = useState(route.params);
+//    const [product, setProduct] = useState(route.params);
+const [product, setProduct] = useState(Addtocart);
   
     const [totalqty, setTotalqty] = useState(0);
     const [totalpay, setTotalpay] = useState(0);
